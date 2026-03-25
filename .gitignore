@@ -1,3 +1,6 @@
+private/
+
+# bundle gem default
 /.bundle/
 /.yardoc
 /_yardoc/

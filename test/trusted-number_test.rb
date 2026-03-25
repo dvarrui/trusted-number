@@ -2,10 +2,10 @@
 
 require "test_helper"
 
-class Trusted::NumberTest < Test::Unit::TestCase
+class TrustedNumberTest < Test::Unit::TestCase
   test "VERSION" do
     assert do
-      ::Trusted::Number.const_defined?(:VERSION)
+      ::TrustedNumber.const_defined?(:VERSION)
     end
   end
 

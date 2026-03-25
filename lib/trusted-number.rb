@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "trusted-number/version"
+
 class TrustedNumber
-  VERSION = "0.1.0"
 end
