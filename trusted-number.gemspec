@@ -4,7 +4,7 @@ require_relative "lib/trusted-number/version"
 
 Gem::Specification.new do |spec|
   spec.name = "trusted-number"
-  spec.version = Trusted::Number::VERSION
+  spec.version = TrustedNumber::VERSION
   spec.authors = ["David Vargas"]
   spec.email = ["dvarrui@proton.me"]
 
