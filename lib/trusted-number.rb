@@ -2,6 +2,9 @@
 
 require_relative "trusted-number/version"
 require_relative "trusted-number/add"
+require_relative "trusted-number/equal"
+require_relative "trusted-number/sub"
+require_relative "trusted-number/mul"
 
 class TrustedNumber
   attr_reader :base
@@ -13,11 +16,11 @@ class TrustedNumber
     @number = number
     @base = base
 
-    num_str = @number.to_s.downcase.delete(' ')
-    pre, post = num_str.split('.')
+    num_str = @number.to_s.downcase.delete(" ")
+    pre, post = num_str.split(".")
     @prenumber = pre || "0"
     @postnumber = post || ""
-    
+
     validate_format!
   end
 
@@ -32,8 +35,8 @@ class TrustedNumber
   private
 
   def build_result(pre, post)
-    pre_clean = pre.gsub(/^0+(?=\d)/, '')
-    post_clean = post.gsub(/0+$/, '')
+    pre_clean = pre.gsub(/^0+(?=\d)/, "")
+    post_clean = post.gsub(/0+$/, "")
     str = post_clean.empty? ? pre_clean : "#{pre_clean}.#{post_clean}"
     TrustedNumber.new(str, base: @base)
   end

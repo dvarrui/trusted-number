@@ -1,10 +1,9 @@
-
 class TrustedNumber
   def +(other)
     # 1. Alinear partes decimales (rellenar con 0 a la derecha)
     max_post = [@postnumber.length, other.postnumber.length].max
-    p1 = @postnumber.ljust(max_post, '0')
-    p2 = other.postnumber.ljust(max_post, '0')
+    p1 = @postnumber.ljust(max_post, "0")
+    p2 = other.postnumber.ljust(max_post, "0")
 
     # 2. Sumar postnumbers
     res_post, carry = add_strings(p1, p2, @base)
@@ -19,16 +18,17 @@ class TrustedNumber
   private
 
   def add_strings(s1, s2, base, carry = 0)
-    res = ""
+    res = []
     i, j = s1.length - 1, s2.length - 1
     while i >= 0 || j >= 0
-      v1 = i >= 0 ? DIGITS.index(s1[i]) : 0
-      v2 = j >= 0 ? DIGITS.index(s2[j]) : 0
+      v1 = (i >= 0) ? DIGITS.index(s1[i]) : 0
+      v2 = (j >= 0) ? DIGITS.index(s2[j]) : 0
       sum = v1 + v2 + carry
       res << DIGITS[sum % base]
       carry = sum / base
-      i -= 1; j -= 1
+      i -= 1
+      j -= 1
     end
-    [res.reverse, carry]
+    [res.reverse.join, carry]
   end
 end

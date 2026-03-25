@@ -21,4 +21,3 @@ dec2 = TrustedNumber.new("0.2")
 res = dec1 + dec2
 puts res
 puts "Value: #{res.value}"
-
