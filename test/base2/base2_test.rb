@@ -3,10 +3,10 @@
 require "test_helper"
 
 class Base2Test < Test::Unit::TestCase
+  include TrustedNumbersSetup
+
   def setup
-    @num1 = TrustedNumber.new("101.001", base: 2)
-    @num2 = TrustedNumber.new("101", base: 2)
-    @num3 = TrustedNumber.new(".001", base: 2)
+    setup_base2
   end
 
   test "new" do
