@@ -10,15 +10,25 @@ class Base10EqualTest < Test::Unit::TestCase
   end
 
   test "new" do
+    assert(@zero.value == "0")
+    assert(@zero.base == 10)
+
     assert(@num1.value == "123.456")
     assert(@num1.base == 10)
+
     assert(@num2.value == "123")
     assert(@num2.base == 10)
+
     assert(@num3.value == "0.456")
     assert(@num3.base == 10)
   end
 
   test "equal" do
+    assert(@zero == TrustedNumber.new("0.0"))
+    assert(@zero == TrustedNumber.new("0."))
+    assert(@zero == TrustedNumber.new(".0"))
+    assert(@zero == TrustedNumber.new("."))
+
     assert(@num1 == TrustedNumber.new("123.456"))
     assert(@num1 == TrustedNumber.new("0123.456"))
     assert(@num1 == TrustedNumber.new("0123.4560"))

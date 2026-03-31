@@ -10,6 +10,9 @@ class Base10PrePostTest < Test::Unit::TestCase
   end
 
   test "predot" do
+    assert(@zero.predot == "0")
+    assert(@zero.postdot == "0")
+
     assert(@num1.predot == "123")
     assert(@num1.postdot == "456")
 
