@@ -1,15 +1,15 @@
 class TrustedNumber
   def +(other)
-    # 1. Alinear partes decimales (rellenar con 0 a la derecha)
-    max_post = [@postnumber.length, other.postnumber.length].max
-    p1 = @postnumber.ljust(max_post, "0")
-    p2 = other.postnumber.ljust(max_post, "0")
+    # Aligne post
+    max_post = [@postdot.length, other.postdot.length].max
+    p1 = @postdot.ljust(max_post, "0")
+    p2 = other.postdot.ljust(max_post, "0")
 
-    # 2. Sumar postnumbers
+    # Sum postdot
     res_post, carry = add_strings(p1, p2, @base)
 
-    # 3. Sumar prenumbers + acarreo anterior
-    res_pre, final_carry = add_strings(@prenumber, other.prenumber, @base, carry)
+    # Sum predot + carry
+    res_pre, final_carry = add_strings(@predot, other.predot, @base, carry)
     res_pre = DIGITS[final_carry] + res_pre if final_carry > 0
 
     build_result(res_pre, res_post)

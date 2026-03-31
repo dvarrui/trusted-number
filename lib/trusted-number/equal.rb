@@ -1,8 +1,8 @@
 class TrustedNumber
   def ==(other)
     cond = (@base == other.base)
-    cond &&= (@prenumber = other.prenumber)
-    cond &&= (@postnumber = other.postnumber)
+    cond &&= (@predot = other.predot)
+    cond &&= (@posdot = other.postdot)
 
     cond
   end

@@ -8,7 +8,7 @@ require_relative "trusted-number/mul"
 
 class TrustedNumber
   attr_reader :base
-  attr_reader :prenumber, :postnumber
+  attr_reader :predot, :postdot
 
   DIGITS = "0123456789abcdefghijklmnopqrstuvwxyz"
 
@@ -18,14 +18,14 @@ class TrustedNumber
 
     num_str = @number.to_s.downcase.delete(" ")
     pre, post = num_str.split(".")
-    @prenumber = pre || "0"
-    @postnumber = post || ""
+    @predot = pre || "0"
+    @postdot = post || ""
 
     validate_format!
   end
 
   def value
-    @postnumber.empty? ? @prenumber : "#{@prenumber}.#{@postnumber}"
+    @postdot.empty? ? @predot : "#{@predot}.#{@postdot}"
   end
 
   def to_s
@@ -44,7 +44,7 @@ class TrustedNumber
   def validate_format!
     allowed = DIGITS[0...@base]
     pattern = /\A[#{allowed}]*\z/
-    unless @prenumber.match?(pattern) && @postnumber.match?(pattern)
+    unless @predot.match?(pattern) && @postdot.match?(pattern)
       raise ArgumentError, "Caracteres inválidos para base #{@base}"
     end
   end
