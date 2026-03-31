@@ -11,21 +11,25 @@ class TrustedNumber
   attr_reader :predot, :postdot
 
   DIGITS = "0123456789abcdefghijklmnopqrstuvwxyz"
+  ZERO = "0"
+  DOT = "."
 
   def initialize(number, base: 10)
     @number = number
     @base = base
 
     num_str = @number.to_s.downcase.delete(" ")
-    pre, post = num_str.split(".")
-    @predot = pre || "0"
-    @postdot = post || ""
+    pre, post = num_str.split(DOT)
+    @predot = pre || ZERO
+    @postdot = post || ZERO
 
     validate_format!
   end
 
   def value
-    @postdot.empty? ? @predot : "#{@predot}.#{@postdot}"
+    return @predot if @postdot == ZERO
+
+    "#{@predot}#{DOT}#{@postdot}"
   end
 
   def to_s
@@ -36,6 +40,8 @@ class TrustedNumber
 
   def build_result(pre, post)
     pre_clean = pre.gsub(/^0+(?=\d)/, "")
+    pre_clean = ZERO if pre_clean.empty?
+
     post_clean = post.gsub(/0+$/, "")
     str = post_clean.empty? ? pre_clean : "#{pre_clean}.#{post_clean}"
     TrustedNumber.new(str, base: @base)
