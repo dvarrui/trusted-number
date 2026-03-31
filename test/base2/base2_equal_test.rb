@@ -14,7 +14,7 @@ class Base2EqualTest < Test::Unit::TestCase
     assert(@num1.base == 2)
     assert(@num2.value == "101")
     assert(@num2.base == 2)
-    assert(@num3.value == ".001")
+    assert(@num3.value == "0.001")
     assert(@num3.base == 2)
   end
 
