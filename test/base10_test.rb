@@ -36,16 +36,24 @@ class Base10Test < Test::Unit::TestCase
   end
 
   test "add" do
-    dec1 = TrustedNumber.new("4")
-    dec2 = TrustedNumber.new("5")
-    dec3 = TrustedNumber.new("9")
+    num1 = TrustedNumber.new("4")
+    num2 = TrustedNumber.new("5")
+    num3 = TrustedNumber.new("9")
+    assert_equal(num3, num1 + num2)
 
-    assert_equal(dec3, dec1 + dec2)
+    num1 = TrustedNumber.new("0.1")
+    num2 = TrustedNumber.new("0.2")
+    num3 = TrustedNumber.new("0.3")
+    assert_equal(num3, num1 + num2)
 
-    dec1 = TrustedNumber.new("0.1")
-    dec2 = TrustedNumber.new("0.2")
-    dec3 = TrustedNumber.new("0.3")
+    num1 = TrustedNumber.new("99")
+    num2 = TrustedNumber.new("1")
+    num3 = TrustedNumber.new("100")
+    assert_equal(num3, num1 + num2)
 
-    assert_equal(dec3, dec1 + dec2)
+    num1 = TrustedNumber.new("99.99")
+    num2 = TrustedNumber.new(".01")
+    num3 = TrustedNumber.new("100.0")
+    assert_equal(num3, num1 + num2)
   end
 end
