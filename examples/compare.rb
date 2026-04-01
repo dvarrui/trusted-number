@@ -6,22 +6,30 @@ def line
 end
 
 num1 = TrustedNumber.new("0")
-num2 = TrustedNumber.new("0.1")
-num3 = TrustedNumber.new("1.0")
-num4 = TrustedNumber.new("1.1")
+num2 = TrustedNumber.new("0.2")
+num3 = TrustedNumber.new("3.0")
+num4 = TrustedNumber.new("4.5")
 
 line
-puts "Example: #{num1.value} == #{num1.value}"
-puts(num1.equal?(num1))
+puts "Example:"
+puts "-  #{num1.value} == #{num1.value} => #{(num1 == num1)}"
+puts "-  #{num1.value} >  #{num1.value} => #{(num1 > num1)}"
+puts "-  #{num1.value} <  #{num1.value} => #{(num1 < num1)}"
 
 line
-puts "Example: #{num1.value} == #{num2.value}"
-puts(num1 == num2)
+puts "Example:"
+puts "-  #{num1.value} == #{num2.value} => #{(num1 == num2)}"
+puts "-  #{num1.value} >  #{num2.value} => #{(num1 > num2)}"
+puts "-  #{num1.value} <  #{num2.value} => #{(num1 < num2)}"
 
 line
-puts "Example: #{num2.value} == #{num3.value}"
-puts(num2 == num3)
+puts "Example:"
+puts "-  #{num2.value} == #{num3.value} => #{(num2 == num3)}"
+puts "-  #{num2.value} >  #{num3.value} => #{(num2 > num3)}"
+puts "-  #{num2.value} <  #{num3.value} => #{(num2 < num3)}"
 
 line
-puts "Example: #{num3.value} == #{num4.value}"
-puts(num3 == num4)
+puts "Example:"
+puts "-  #{num4.value} == #{num3.value} => #{(num4 == num3)}"
+puts "-  #{num4.value} >  #{num3.value} => #{(num4 > num3)}"
+puts "-  #{num4.value} <  #{num3.value} => #{(num4 < num3)}"
