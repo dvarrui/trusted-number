@@ -1,6 +1,8 @@
 # trusted-number
 
-A trusted number is a number whose value will not change secretly. For example, with base 10 numbers: `0.1 + 0.2` is `0.3`.
+A trusted number is a number whose value will not change secretly.
+
+For example (with base 10 numbers): `0.1 + 0.2 == 0.3`.
 
 ## Installation
 
