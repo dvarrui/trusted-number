@@ -9,13 +9,16 @@ class Base2EqualTest < Test::Unit::TestCase
     setup_base2
   end
 
-  test "new" do
-    assert(@num1.value == "101.001")
+  test "base" do
     assert(@num1.base == 2)
-    assert(@num2.value == "101")
     assert(@num2.base == 2)
-    assert(@num3.value == "0.001")
     assert(@num3.base == 2)
+  end
+
+  test "value" do
+    assert(@num1.value == "101.001(b2)")
+    assert(@num2.value == "101(b2)")
+    assert(@num3.value == "0.001(b2)")
   end
 
   test "equal" do
