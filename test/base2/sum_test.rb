@@ -30,4 +30,11 @@ class Base2SumTest < Test::Unit::TestCase
     num3 = TrustedNumber.new("100.0", base: 2)
     assert_equal(num3, num1 + num2)
   end
+
+  test "add ZERO" do
+    assert_equal(@zero, @zero + @zero)
+    assert_equal(@num1, @num1 + @zero)
+    assert_equal(@num2, @num2 + @zero)
+    assert_equal(@num3, @num3 + @zero)
+  end
 end
