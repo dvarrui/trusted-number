@@ -23,13 +23,19 @@ class TrustedNumber
   end
 
   def value
-    return @predot if @postdot == ZERO
-
-    "#{@predot}#{DOT}#{@postdot}"
+    number = ""
+    if @postdot == ZERO
+      number = @predot
+    else
+      number = "#{@predot}#{DOT}#{@postdot}"
+    end
+    base = "(b#{@base})"
+    base = "" if @base == 10
+    "#{number}#{base}"
   end
 
   def to_s
-    "TrustedNumber: #{value} (base: #{@base})"
+    value
   end
 
   def about
