@@ -10,15 +10,26 @@ gem install trusted-number
 
 ## Usage
 
-Example:
+Example (base 10):
 
 ```ruby
 require "trusted-number"
 
-num1 = TrustedNumber.new("0.1")
-num2 = TrustedNumber.new("0.2")
+dec1 = TrustedNumber.new("0.1")
+dec2 = TrustedNumber.new("0.2")
 
-puts num1 + num2 #=> 0.3
+print " Base 10: 0.1 + 0.2 = "
+puts dec1 + dec2 #=> 0.3
+```
+
+Example (base 2):
+
+```ruby
+bin1 = TrustedNumber.new("101.1", base: 2)
+bin2 = TrustedNumber.new("0.1", base: 2)
+
+print " Base 2: 101.1 + 0.1 = "
+puts bin1 + bin2 #=> 110(b2)
 ```
 
 > More [examples](./examples/)
