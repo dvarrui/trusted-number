@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class Base10EqualTest < Test::Unit::TestCase
+class Base10CompareTest < Test::Unit::TestCase
   include TrustedNumbersSetup
 
   def setup
@@ -62,5 +62,16 @@ class Base10EqualTest < Test::Unit::TestCase
 
     assert_false(@zero == TrustedNumber.new("0.1"))
     assert_false(@num1 == @num2)
+  end
+
+  test "less" do
+    assert_true(@zero < @num1)
+    assert_true(@zero < @num2)
+    assert_true(@zero < @num3)
+
+    assert_true(@num2 < @num1)
+    assert_true(@num3 < @num1)
+
+    assert_true(@num3 < @num2)
   end
 end

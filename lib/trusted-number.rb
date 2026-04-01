@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "trusted-number/version"
 require_relative "trusted-number/add"
-require_relative "trusted-number/equal"
-require_relative "trusted-number/sub"
+require_relative "trusted-number/compare"
 require_relative "trusted-number/mul"
+require_relative "trusted-number/version"
 
 class TrustedNumber
   attr_reader :base
@@ -23,11 +22,10 @@ class TrustedNumber
   end
 
   def value
-    number = ""
-    if @postdot == ZERO
-      number = @predot
+    number = if @postdot == ZERO
+      @predot
     else
-      number = "#{@predot}#{DOT}#{@postdot}"
+      "#{@predot}#{DOT}#{@postdot}"
     end
     base = "(b#{@base})"
     base = "" if @base == 10

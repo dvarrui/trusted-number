@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class Base2EqualTest < Test::Unit::TestCase
+class Base2CompareTest < Test::Unit::TestCase
   include TrustedNumbersSetup
 
   def setup
