@@ -29,7 +29,7 @@ class TrustedNumber
     end
     base = "(b#{@base})"
     base = "" if @base == 10
-    "#{number}#{base}"
+    "#{@sign}#{number}#{base}"
   end
 
   def to_s
@@ -76,7 +76,7 @@ class TrustedNumber
     allowed = DIGITS[0...@base]
     pattern = /\A[#{allowed}]*\z/
     unless @predot.match?(pattern) && @postdot.match?(pattern)
-      raise ArgumentError, "Caracteres inválidos para base #{@base}"
+      raise ArgumentError, "Invalid chars (base #{@base})"
     end
   end
 end
