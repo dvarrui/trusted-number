@@ -19,3 +19,8 @@ desc "Help"
 task :help do
   system("rake -T")
 end
+
+desc "Run standard:fix"
+task :sf do
+  system("rake standard:fix")
+end

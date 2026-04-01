@@ -41,7 +41,7 @@ puts bin1 + bin2 #=> 110(b2)
 Avalilable operations:
 
 * New number object. Bases from 2 to 23.
-* Equal (`==`)
+* Compare (`==`, `<`, `>`)
 * Add (`+`)
 
 ## Contributing

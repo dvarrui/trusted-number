@@ -14,10 +14,10 @@ class TrustedNumber
   DOT = "."
 
   def initialize(number, base: 10)
-    @number = number
+    @number = number.chomp
     @base = base
 
-    fill_pre_and_post
+    fill_attibutes(@number)
     validate_format
   end
 
@@ -51,8 +51,10 @@ class TrustedNumber
     TrustedNumber.new(str_number, base: @base)
   end
 
-  def fill_pre_and_post
-    num_str = @number.to_s.downcase.delete(" ")
+  def fill_attibutes(number)
+    @sign = ""
+
+    num_str = number.to_s.downcase.delete(" ")
     pre, post = num_str.split(DOT)
 
     pre&.gsub!(/\A0+/, "")
