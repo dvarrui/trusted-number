@@ -6,12 +6,13 @@ require_relative "trusted-number/mul"
 require_relative "trusted-number/version"
 
 class TrustedNumber
-  attr_reader :base
-  attr_reader :predot, :postdot
+  attr_reader :base, :sign, :predot, :postdot
 
   DIGITS = "0123456789abcdefghijklmnopqrstuvwxyz"
   ZERO = "0"
   DOT = "."
+  POSITIVE = "+"
+  NEGATIVE = "-"
 
   def initialize(number, base: 10)
     @number = number.chomp
@@ -22,6 +23,8 @@ class TrustedNumber
   end
 
   def value
+    sign = (@sign == POSITIVE) ? "" : @sign
+
     number = if @postdot == ZERO
       @predot
     else
@@ -29,7 +32,7 @@ class TrustedNumber
     end
     base = "(b#{@base})"
     base = "" if @base == 10
-    "#{@sign}#{number}#{base}"
+    "#{sign}#{number}#{base}"
   end
 
   def to_s
@@ -37,7 +40,7 @@ class TrustedNumber
   end
 
   def about
-    "TrustedNumber: #{value}|base:#{@base}|pre:#{@predot}|post:#{@postdot}"
+    "TrustedNumber: #{value}|base:#{@base}|sign:#{@sign}|pre:#{@predot}|post:#{@postdot}"
   end
 
   private
@@ -73,9 +76,9 @@ class TrustedNumber
   end
 
   def fill_sign(number)
-    @sign = ""
-    if number.start_with?("-")
-      @sign = "-"
+    @sign = POSITIVE
+    if number.start_with?(NEGATIVE)
+      @sign = NEGATIVE
       number = number[1..]
     end
     number

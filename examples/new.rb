@@ -11,6 +11,7 @@ num = TrustedNumber.new("123.456")
 line
 puts "Example: 123.456"
 puts "- base    : #{num.base}"
+puts "- sign    : #{num.sign}"
 puts "- predot  : #{num.predot}"
 puts "- postdot : #{num.postdot}"
 puts "- value   : #{num.value}"
