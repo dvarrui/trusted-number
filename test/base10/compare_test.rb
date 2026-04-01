@@ -74,4 +74,26 @@ class Base10CompareTest < Test::Unit::TestCase
 
     assert_true(@num3 < @num2)
   end
+
+  test "no less" do
+    assert_false(@zero > @num1)
+    assert_false(@zero > @num2)
+    assert_false(@zero > @num3)
+
+    assert_false(@num2 > @num1)
+    assert_false(@num3 > @num1)
+
+    assert_false(@num3 > @num2)
+  end
+
+  test "greater" do
+    assert_true(@num1 > @zero)
+    assert_true(@num1 > @num2)
+    assert_true(@num1 > @num3)
+
+    assert_true(@num2 > @zero)
+    assert_true(@num2 > @num3)
+
+    assert_true(@num3 > @zero)
+  end
 end
