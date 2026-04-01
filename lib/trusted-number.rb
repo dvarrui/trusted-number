@@ -52,9 +52,9 @@ class TrustedNumber
   end
 
   def fill_attibutes(number)
-    @sign = ""
-
     num_str = number.to_s.downcase.delete(" ")
+    num_str = fill_sign(num_str)
+
     pre, post = num_str.split(DOT)
 
     pre&.gsub!(/\A0+/, "")
@@ -70,6 +70,15 @@ class TrustedNumber
     else
       post
     end
+  end
+
+  def fill_sign(number)
+    @sign = ""
+    if number.start_with?("-")
+      @sign = "-"
+      number = number[1..]
+    end
+    number
   end
 
   def validate_format
