@@ -13,7 +13,7 @@ gem install trusted-number
 Example:
 
 ```ruby
-require_relative "trusted-number"
+require "trusted-number"
 
 num1 = TrustedNumber.new("0.1")
 num2 = TrustedNumber.new("0.2")
@@ -22,6 +22,14 @@ puts num1 + num2 #=> 0.3
 ```
 
 > More [examples](./examples/)
+
+## Functions
+
+Avalilable operations:
+
+* New number object. Bases from 2 to 23.
+* Equal (`==`)
+* Add (`+`)
 
 ## Contributing
 
