@@ -9,6 +9,12 @@ class Base2CompareTest < Test::Unit::TestCase
     setup_base2
   end
 
+  test "base symbols" do
+    assert_raise do
+      TrustedNumber.new("120", base: 2)
+    end
+  end
+
   test "base" do
     assert(@num1.base == 2)
     assert(@num2.base == 2)

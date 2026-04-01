@@ -9,6 +9,12 @@ class Base10CompareTest < Test::Unit::TestCase
     setup_base10
   end
 
+  test "base symbols" do
+    assert_raise do
+      TrustedNumber.new("12a")
+    end
+  end
+
   test "new" do
     assert_equal("0", @zero.value)
     assert_equal(10, @zero.base)
