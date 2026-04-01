@@ -15,19 +15,19 @@ class Base2SumTest < Test::Unit::TestCase
     num3 = TrustedNumber.new("1001", base: 2)
     assert_equal(num3, num1 + num2)
 
-    num1 = TrustedNumber.new("0.01")
-    num2 = TrustedNumber.new("0.10")
-    num3 = TrustedNumber.new("0.11")
+    num1 = TrustedNumber.new("0.01", base: 2)
+    num2 = TrustedNumber.new("0.10", base: 2)
+    num3 = TrustedNumber.new("0.11", base: 2)
     assert(num3 == num1 + num2)
 
-    num1 = TrustedNumber.new("0111")
-    num2 = TrustedNumber.new("0001")
-    num3 = TrustedNumber.new("1000")
-    assert_equal(num3, num1 + num2)
+    num1 = TrustedNumber.new("0111", base: 2)
+    num2 = TrustedNumber.new("0001", base: 2)
+    num3 = TrustedNumber.new("1000", base: 2)
+    assert_equal(num3.about, (num1 + num2).about)
 
-    num1 = TrustedNumber.new("11.11")
-    num2 = TrustedNumber.new(".01")
-    num3 = TrustedNumber.new("100.0")
+    num1 = TrustedNumber.new("11.11", base: 2)
+    num2 = TrustedNumber.new(".01", base: 2)
+    num3 = TrustedNumber.new("100.0", base: 2)
     assert_equal(num3, num1 + num2)
   end
 end

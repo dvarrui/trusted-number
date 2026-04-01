@@ -13,16 +13,16 @@ num4 = TrustedNumber.new("1.1")
 
 line
 puts "Example: #{num1.value} == #{num1.value}"
-puts (num1 == num1)
+puts(num1.equal?(num1))
 
 line
 puts "Example: #{num1.value} == #{num2.value}"
-puts (num1 == num2)
+puts(num1 == num2)
 
 line
 puts "Example: #{num2.value} == #{num3.value}"
-puts (num2 == num3)
+puts(num2 == num3)
 
 line
 puts "Example: #{num3.value} == #{num4.value}"
-puts (num3 == num4)
+puts(num3 == num4)

@@ -15,16 +15,15 @@ class Base10EqualTest < Test::Unit::TestCase
     assert_equal("0", @zero.predot)
     assert_equal("0", @zero.postdot)
 
-    puts @num1.about
     assert_equal("123.456", @num1.value)
     assert_equal(10, @num1.base)
     assert_equal("123", @num1.predot)
     assert_equal("456", @num1.postdot)
 
-    assert_equal(@num2.value, "123")
-    assert_equal(@num2.base, 10)
-    assert_equal(@num2.predot, "123")
-    assert_equal(@num2.postdot, "0")
+    assert_equal("123", @num2.value)
+    assert_equal(10, @num2.base)
+    assert_equal("123", @num2.predot)
+    assert_equal("0", @num2.postdot)
 
     assert_equal(@num3.value, "0.456")
     assert_equal(@num3.base, 10)
@@ -61,7 +60,7 @@ class Base10EqualTest < Test::Unit::TestCase
     assert_false(TrustedNumber.new("1") == TrustedNumber.new("1", base: 2))
     assert_false(TrustedNumber.new("10") == TrustedNumber.new("10", base: 2))
 
-    assert_false( @zero == TrustedNumber.new("0.1") )
-    assert_false( @num1 == @num2 )
+    assert_false(@zero == TrustedNumber.new("0.1"))
+    assert_false(@num1 == @num2)
   end
 end

@@ -51,20 +51,20 @@ class TrustedNumber
     num_str = @number.to_s.downcase.delete(" ")
     pre, post = num_str.split(DOT)
 
-    pre.gsub!(/\A0+/, '') unless pre.nil?
-    if pre.nil? || pre == ""
-      @predot = ZERO
+    pre&.gsub!(/\A0+/, "")
+    @predot = if pre.nil? || pre == ""
+      ZERO
     else
-      @predot = pre
+      pre
     end
 
-    post.sub!(/0+\z/, '') unless post.nil?
-    if post.nil? || post == ""
-      @postdot = ZERO
+    post&.sub!(/0+\z/, "")
+    @postdot = if post.nil? || post == ""
+      ZERO
     else
-      @postdot = post
+      post
     end
-  end 
+  end
 
   def validate_format
     allowed = DIGITS[0...@base]
