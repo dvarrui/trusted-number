@@ -10,15 +10,16 @@ class Base10EqualTest < Test::Unit::TestCase
   end
 
   test "new" do
-    assert_equal(@zero.value, "0")
-    assert_equal(@zero.base, 10)
-    assert_equal(@zero.predot, "0")
-    assert_equal(@zero.postdot, "0")
+    assert_equal("0", @zero.value)
+    assert_equal(10, @zero.base)
+    assert_equal("0", @zero.predot)
+    assert_equal("0", @zero.postdot)
 
-    assert_equal(@num1.value, "123.456")
-    assert_equal(@num1.base, 10)
-    assert_equal(@num1.predot, "123")
-    assert_equal(@num1.postdot, "456")
+    puts @num1.about
+    assert_equal("123.456", @num1.value)
+    assert_equal(10, @num1.base)
+    assert_equal("123", @num1.predot)
+    assert_equal("456", @num1.postdot)
 
     assert_equal(@num2.value, "123")
     assert_equal(@num2.base, 10)
@@ -32,33 +33,35 @@ class Base10EqualTest < Test::Unit::TestCase
   end
 
   test "equal" do
-    assert(@zero == TrustedNumber.new("0.0"))
-    assert(@zero == TrustedNumber.new("0."))
-    assert(@zero == TrustedNumber.new(".0"))
-    assert(@zero == TrustedNumber.new("."))
+    assert_equal(@zero.about, TrustedNumber.new("0.0").about)
+    assert_equal(@zero.about, TrustedNumber.new("0.").about)
+    assert_equal(@zero.about, TrustedNumber.new(".0").about)
+    assert_equal(@zero.about, TrustedNumber.new(".").about)
 
-    assert(@num1 == TrustedNumber.new("123.456"))
-    assert(@num1 == TrustedNumber.new("0123.456"))
-    assert(@num1 == TrustedNumber.new("0123.4560"))
-    assert(@num1 == TrustedNumber.new("123.4560"))
+    assert_equal(@num1.about, TrustedNumber.new("123.456").about)
+    assert_equal(@num1.about, TrustedNumber.new("0123.456").about)
+    assert_equal(@num1.about, TrustedNumber.new("0123.4560").about)
+    assert_equal(@num1.about, TrustedNumber.new("123.4560").about)
 
-    assert(@num2 == TrustedNumber.new("123"))
-    assert(@num2 == TrustedNumber.new("0123"))
-    assert(@num2 == TrustedNumber.new("0123.0"))
-    assert(@num2 == TrustedNumber.new("123.0"))
+    assert_equal(@num2.about, TrustedNumber.new("123").about)
+    assert_equal(@num2.about, TrustedNumber.new("0123").about)
+    assert_equal(@num2.about, TrustedNumber.new("0123.0").about)
+    assert_equal(@num2.about, TrustedNumber.new("123.0").about)
 
-    assert(@num3 == TrustedNumber.new(".456"))
-    assert(@num3 == TrustedNumber.new("0.456"))
-    assert(@num3 == TrustedNumber.new("0.4560"))
-    assert(@num3 == TrustedNumber.new(".4560"))
+    assert_equal(@num3.about, TrustedNumber.new(".456").about)
+    assert_equal(@num3.about, TrustedNumber.new("0.456").about)
+    assert_equal(@num3.about, TrustedNumber.new("0.4560").about)
+    assert_equal(@num3.about, TrustedNumber.new(".4560").about)
   end
 
   test "not equal" do
-    # refute_equal(@zero, TrustedNumber.new("0.1"))
-    # assert(@num1 != @num2)
+    cond = TrustedNumber.new("0") == TrustedNumber.new("0", base: 2)
+    assert_false(cond)
 
-    # assert(TrustedNumber.new("0") != TrustedNumber.new("0", base: 2))
-    # assert(TrustedNumber.new("1") != TrustedNumber.new("1", base: 2))
-    # assert(TrustedNumber.new("10") != TrustedNumber.new("10", base: 2))
+    assert_false(TrustedNumber.new("1") == TrustedNumber.new("1", base: 2))
+    assert_false(TrustedNumber.new("10") == TrustedNumber.new("10", base: 2))
+
+    assert_false( @zero == TrustedNumber.new("0.1") )
+    assert_false( @num1 == @num2 )
   end
 end

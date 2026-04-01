@@ -27,7 +27,7 @@ class Base2EqualTest < Test::Unit::TestCase
     assert(@num2 == TrustedNumber.new("101", base: 2))
     assert(@num2 == TrustedNumber.new("0101", base: 2))
     assert(@num2 == TrustedNumber.new("0101", base: 2))
-    assert(@num2 == TrustedNumber.new("101.0", base: 2))
+    assert_equal(@num2.about, TrustedNumber.new("101.0", base: 2).about)
 
     assert(@num3 == TrustedNumber.new(".001", base: 2))
     assert(@num3 == TrustedNumber.new("0.001", base: 2))

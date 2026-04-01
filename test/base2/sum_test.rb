@@ -18,7 +18,7 @@ class Base2SumTest < Test::Unit::TestCase
     num1 = TrustedNumber.new("0.01")
     num2 = TrustedNumber.new("0.10")
     num3 = TrustedNumber.new("0.11")
-    assert_equal(num3, num1 + num2)
+    assert(num3 == num1 + num2)
 
     num1 = TrustedNumber.new("0111")
     num2 = TrustedNumber.new("0001")

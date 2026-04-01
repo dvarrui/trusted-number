@@ -18,11 +18,7 @@ class TrustedNumber
     @number = number
     @base = base
 
-    num_str = @number.to_s.downcase.delete(" ")
-    pre, post = num_str.split(DOT)
-    @predot = pre || ZERO
-    @postdot = post || ZERO
-
+    fill_pre_and_post
     validate_format
   end
 
@@ -36,6 +32,10 @@ class TrustedNumber
     "TrustedNumber: #{value} (base: #{@base})"
   end
 
+  def about
+    "TrustedNumber: #{value}|base:#{@base}|pre:#{@predot}|post:#{@postdot}"
+  end
+
   private
 
   def create_new_tnumber(pre, post)
@@ -46,6 +46,25 @@ class TrustedNumber
     str_number = post_clean.empty? ? pre_clean : "#{pre_clean}.#{post_clean}"
     TrustedNumber.new(str_number, base: @base)
   end
+
+  def fill_pre_and_post
+    num_str = @number.to_s.downcase.delete(" ")
+    pre, post = num_str.split(DOT)
+
+    pre.gsub!(/\A0+/, '') unless pre.nil?
+    if pre.nil? || pre == ""
+      @predot = ZERO
+    else
+      @predot = pre
+    end
+
+    post.sub!(/0+\z/, '') unless post.nil?
+    if post.nil? || post == ""
+      @postdot = ZERO
+    else
+      @postdot = post
+    end
+  end 
 
   def validate_format
     allowed = DIGITS[0...@base]
