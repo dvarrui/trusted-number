@@ -15,6 +15,10 @@ class TrustedNumber
     return nil unless other.is_a?(TrustedNumber)
     return 0 if about == other.about
 
+    # compare sign
+    return 1 if positive? && other.negative?
+    return -1 if negative? && other.positive?
+
     # compare predot
     max_pre = [@predot.length, other.predot.length].max
     s1_pre = @predot.rjust(max_pre, "0")

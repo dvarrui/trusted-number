@@ -5,7 +5,6 @@ class TrustedNumber
     p1 = @postdot.ljust(max_post, "0")
     p2 = other.postdot.ljust(max_post, "0")
 
-    # Sum postdot
     res_post, carry = add_strings(p1, p2, @base)
 
     # Sum predot + carry
@@ -14,6 +13,7 @@ class TrustedNumber
 
     create_new_tnumber(res_pre, res_post)
   end
+  alias_method :add, :+
 
   private
 

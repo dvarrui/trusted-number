@@ -3,6 +3,7 @@
 require_relative "trusted-number/add"
 require_relative "trusted-number/compare"
 require_relative "trusted-number/mul"
+require_relative "trusted-number/subtract"
 require_relative "trusted-number/version"
 
 class TrustedNumber
@@ -22,6 +23,22 @@ class TrustedNumber
     validate_format
   end
 
+  def about
+    "TrustedNumber: #{value}|base:#{@base}|sign:#{@sign}|pre:#{@predot}|post:#{@postdot}"
+  end
+
+  def negative?
+    @sign == NEGATIVE
+  end
+
+  def positive?
+    !negative?
+  end
+
+  def to_s
+    value
+  end
+
   def value
     sign = (@sign == POSITIVE) ? "" : @sign
 
@@ -33,14 +50,6 @@ class TrustedNumber
     base = "(b#{@base})"
     base = "" if @base == 10
     "#{sign}#{number}#{base}"
-  end
-
-  def to_s
-    value
-  end
-
-  def about
-    "TrustedNumber: #{value}|base:#{@base}|sign:#{@sign}|pre:#{@predot}|post:#{@postdot}"
   end
 
   private

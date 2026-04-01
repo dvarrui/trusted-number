@@ -6,8 +6,8 @@ def line
 end
 
 num1 = TrustedNumber.new("0")
-num2 = TrustedNumber.new("0.2")
-num3 = TrustedNumber.new("3.0")
+num2 = TrustedNumber.new("-0.2")
+num3 = TrustedNumber.new("-3.0")
 num4 = TrustedNumber.new("4.5")
 
 line
