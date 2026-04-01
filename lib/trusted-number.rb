@@ -23,7 +23,7 @@ class TrustedNumber
     @predot = pre || ZERO
     @postdot = post || ZERO
 
-    validate_format!
+    validate_format
   end
 
   def value
@@ -38,16 +38,16 @@ class TrustedNumber
 
   private
 
-  def build_result(pre, post)
+  def create_new_tnumber(pre, post)
     pre_clean = pre.gsub(/^0+(?=\d)/, "")
     pre_clean = ZERO if pre_clean.empty?
 
     post_clean = post.gsub(/0+$/, "")
-    str = post_clean.empty? ? pre_clean : "#{pre_clean}.#{post_clean}"
-    TrustedNumber.new(str, base: @base)
+    str_number = post_clean.empty? ? pre_clean : "#{pre_clean}.#{post_clean}"
+    TrustedNumber.new(str_number, base: @base)
   end
 
-  def validate_format!
+  def validate_format
     allowed = DIGITS[0...@base]
     pattern = /\A[#{allowed}]*\z/
     unless @predot.match?(pattern) && @postdot.match?(pattern)

@@ -12,7 +12,7 @@ class TrustedNumber
     res_pre, final_carry = add_strings(@predot, other.predot, @base, carry)
     res_pre = DIGITS[final_carry] + res_pre if final_carry > 0
 
-    build_result(res_pre, res_post)
+    create_new_tnumber(res_pre, res_post)
   end
 
   private
