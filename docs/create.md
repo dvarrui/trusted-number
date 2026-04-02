@@ -2,7 +2,7 @@
 
 # Create
 
-## 1. Create TrustedNumber base 10 numbers
+## 1. Create base 10 numbers
 
 Create `TrustedNumber` number (base 10) from `String`:
 
@@ -27,7 +27,7 @@ num1 = TrustedNumber.new(0.1)
 num2 = TrustedNumber.new(-2.3)
 ```
 
-## 2. Create TrustedNumber numbers for other bases.
+## 2. Create numbers for other bases.
 
 ```ruby
 require_relative "trusted-number"
@@ -37,7 +37,7 @@ bin2 = TrustedNumber.new("101", base: 2)
 hex3 = TrustedNumber.new("FF", base: 16)
 ```
 
-## 3. Using TNumber alias
+## 3. Using alias
 
 The alias `TNumber` is a shorthand way of referring to the main class `TrustedNumber`.
 
@@ -50,7 +50,7 @@ num2 = TNumber.new("0.2")
 puts num1 + num2
 ```
 
-## 4. Factory
+## 4. Numbers factory
 
 Factory is a number generator for a given base.
 
