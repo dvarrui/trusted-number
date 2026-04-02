@@ -6,7 +6,7 @@ input = "0123.4560"
 num = TrustedNumber.new(input)
 
 line
-puts "Example: #{input}"
+puts "Example: #{input}\n\n"
 puts "  base  : #{num.base}"
 puts "  sign  : #{num.sign}"
 puts "  mant  : #{num.mant}"

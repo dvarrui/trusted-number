@@ -10,12 +10,6 @@ require_relative "trusted-number/version"
 class TrustedNumber
   attr_reader :base, :sign, :mant, :exp
 
-  DIGITS = "0123456789abcdefghijklmnopqrstuvwxyz"
-  ZERO = "0"
-  DOT = "."
-  POSITIVE = "+"
-  NEGATIVE = "-"
-
   def self.factory(base)
     unless base == base.to_i || base < 1
       raise ArgumentError, "Invalid base (Natural number > 1)"
