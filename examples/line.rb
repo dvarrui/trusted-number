@@ -1,7 +1,7 @@
-def line(eol: true)
+def line(nl: true)
   prefix = ""
   suffix = ""
-  if eol
+  if nl
     prefix = "\n"
     suffix = "\n\n"
   end

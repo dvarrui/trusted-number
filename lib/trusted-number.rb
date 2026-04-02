@@ -27,7 +27,7 @@ class TrustedNumber
   end
 
   def about
-    "TrustedNumber: #{value}|base:#{@base}|sign:#{@sign}|mant:#{@mant}|exp:#{@exp}"
+    "TrustedNumber: #{to_s}|base:#{@base}|sign:#{@sign}|mant:#{@mant}|exp:#{@exp}"
   end
 
   def negative?
@@ -39,10 +39,6 @@ class TrustedNumber
   end
 
   def to_s
-    value
-  end
-
-  def value
     sign = (@sign == POSITIVE) ? "" : @sign
 
     number = @mant.dup
@@ -52,10 +48,13 @@ class TrustedNumber
     elsif @exp.negative?
       desp = @mant.length + @exp
       if desp <= 0
-        number = ZERO + (ZERO * desp) + number
+        number = ZERO + (ZERO * desp.abs) + number
+        desp = number.length + @exp
+        index = -desp - 1
+      else
+        desp = number.length + @exp
+        index = -desp
       end
-      desp = number.length + @exp
-      index = -desp
       number.insert(index - 1, DOT)
     end
     base = "(b#{@base})"
