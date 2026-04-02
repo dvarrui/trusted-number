@@ -7,7 +7,7 @@ require_relative "trusted-number/subtract"
 require_relative "trusted-number/version"
 
 class TrustedNumber
-  attr_reader :base, :sign, :predot, :postdot
+  attr_reader :base, :sign, :mant, :exp
 
   DIGITS = "0123456789abcdefghijklmnopqrstuvwxyz"
   ZERO = "0"
@@ -27,12 +27,12 @@ class TrustedNumber
     @number = number.to_s.strip
     @base = base
 
-    fill_attibutes(@number)
+    read_attibutes(@number)
     validate_format
   end
 
   def about
-    "TrustedNumber: #{value}|base:#{@base}|sign:#{@sign}|pre:#{@predot}|post:#{@postdot}"
+    "TrustedNumber: #{value}|base:#{@base}|sign:#{@sign}|mant:#{@mant}|exp:#{@exp}"
   end
 
   def negative?
@@ -50,10 +50,13 @@ class TrustedNumber
   def value
     sign = (@sign == POSITIVE) ? "" : @sign
 
-    number = if @postdot == ZERO
-      @predot
+    if @exp.zero?
+      number = @mant.dup
+    elsif @exp.positive?
+      size = @mant.length * @exp
+      number = @mant.ljust(size, ZERO)
     else
-      "#{@predot}#{DOT}#{@postdot}"
+      number = @mant.dup.insert(@exp - 1, DOT)
     end
     base = "(b#{@base})"
     base = "" if @base == 10
@@ -71,40 +74,43 @@ class TrustedNumber
     TrustedNumber.new(str_number, base: @base)
   end
 
-  def fill_attibutes(number)
+  def read_attibutes(number)
     num_str = number.to_s.downcase.delete(" ")
-    num_str = fill_sign(num_str)
+    num_str = read_sign(num_str)
+    num_str = read_exp(num_str)
 
-    pre, post = num_str.split(DOT)
-
-    pre&.gsub!(/\A0+/, "")
-    @predot = if pre.nil? || pre == ""
-      ZERO
+    if num_str.size.zero?
+      @mant = ZERO
     else
-      pre
-    end
-
-    post&.sub!(/0+\z/, "")
-    @postdot = if post.nil? || post == ""
-      ZERO
-    else
-      post
+      @mant = num_str
     end
   end
 
-  def fill_sign(number)
+  def read_sign(number)
     @sign = POSITIVE
     if number.start_with?(NEGATIVE)
       @sign = NEGATIVE
+      number = number[1..]
+    elsif number.start_with?(POSITIVE)
       number = number[1..]
     end
     number
   end
 
+  def read_exp(number)
+    if number.index(DOT).nil?
+      @exp = 0
+    else
+      dotpos = number.length - 1 - number.index(DOT)
+      @exp = - dotpos
+    end
+    number.delete(DOT)
+  end
+
   def validate_format
     allowed = DIGITS[0...@base]
     pattern = /\A[#{allowed}]*\z/
-    unless @predot.match?(pattern) && @postdot.match?(pattern)
+    unless @mant.match?(pattern)
       raise ArgumentError, "Invalid chars (base #{@base})"
     end
   end
