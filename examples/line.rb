@@ -5,5 +5,5 @@ def line(eol: true)
     prefix = "\n"
     suffix = "\n\n"
   end
-  puts prefix + "-" * 60 + suffix
+  puts prefix + "-" * 70 + suffix
 end
