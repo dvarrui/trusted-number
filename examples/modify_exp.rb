@@ -18,3 +18,6 @@ show("down exp to -1 again", num)
 
 num.up_exp_to!(2)
 show("up exp to 2", num)
+
+num.move_exp_to!(0)
+show("move exp to 0", num)

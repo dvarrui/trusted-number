@@ -2,6 +2,7 @@
 
 require_relative "trusted-number/add"
 require_relative "trusted-number/compare"
+require_relative "trusted-number/exp"
 require_relative "trusted-number/load"
 require_relative "trusted-number/mul"
 require_relative "trusted-number/output"
@@ -24,28 +25,6 @@ class TrustedNumber
     @base = base
 
     load_attibutes(@number)
-  end
-
-  def down_exp_to!(new_exp)
-    return if @exp <= new_exp
-    while @exp > new_exp
-      @mant += ZERO
-      @exp -= 1
-    end
-    true
-  end
-
-  def up_exp_to!(new_exp)
-    return if @exp >= new_exp
-    while @exp < new_exp
-      if @mant.end_with? ZERO
-        @mant = @mant[0..-2]
-        @exp += 1
-      else
-        return false
-      end
-    end
-    true
   end
 
   private
