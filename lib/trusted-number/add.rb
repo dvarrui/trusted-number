@@ -1,6 +1,7 @@
 class TrustedNumber
   def +(other)
-    # Aligne post
+    # Aligne numbers
+
     max_post = [@postdot.length, other.postdot.length].max
     p1 = @postdot.ljust(max_post, "0")
     p2 = other.postdot.ljust(max_post, "0")

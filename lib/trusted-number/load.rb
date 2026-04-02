@@ -3,16 +3,16 @@
 class TrustedNumber
   private
 
-  def read_attibutes(input)
+  def load_attibutes(input)
     num = input.delete(" ")
-    num = read_sign(num)
+    num = load_sign(num)
     num = clean_unused_digits(num)
-    num = read_exp(num)
-    read_mant(num)
+    num = load_exp(num)
+    load_mant(num)
     validate_format
   end
 
-  def read_sign(number)
+  def load_sign(number)
     @sign = POSITIVE
     if number.start_with?(NEGATIVE)
       @sign = NEGATIVE
@@ -30,7 +30,7 @@ class TrustedNumber
     clean
   end
 
-  def read_exp(number)
+  def load_exp(number)
     if number.index(DOT).nil?
       @exp = 0
     else
@@ -40,7 +40,7 @@ class TrustedNumber
     number.delete(DOT)
   end
 
-  def read_mant(number)
+  def load_mant(number)
     mant = number.gsub(/^0+(?=\d)/, "")
     mant = ZERO if mant.empty?
     @mant = mant

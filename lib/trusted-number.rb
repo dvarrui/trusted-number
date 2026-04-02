@@ -2,8 +2,8 @@
 
 require_relative "trusted-number/add"
 require_relative "trusted-number/compare"
+require_relative "trusted-number/load"
 require_relative "trusted-number/mul"
-require_relative "trusted-number/read"
 require_relative "trusted-number/subtract"
 require_relative "trusted-number/version"
 
@@ -28,7 +28,7 @@ class TrustedNumber
     @number = number.to_s.downcase.strip
     @base = base
 
-    read_attibutes(@number)
+    load_attibutes(@number)
   end
 
   def about
