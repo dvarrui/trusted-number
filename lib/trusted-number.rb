@@ -15,6 +15,10 @@ class TrustedNumber
   POSITIVE = "+"
   NEGATIVE = "-"
 
+  def self.factory(base)
+    ->(number) { new(number, base: base) }
+  end
+
   def initialize(number, base: 10)
     @number = number.to_s.strip
     @base = base

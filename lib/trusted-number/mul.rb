@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrustedNumber
   def *(other)
     # Algoritmo: Multiplicar como si no hubiera puntos, luego posicionar punto
