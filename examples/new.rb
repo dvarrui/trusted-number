@@ -2,7 +2,7 @@
 require_relative "../lib/trusted-number"
 require_relative "line"
 
-input = "0123.4560"
+input = "0120.0"
 num = TrustedNumber.new(input)
 
 line

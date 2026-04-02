@@ -6,6 +6,7 @@ require_relative "trusted-number/load"
 require_relative "trusted-number/mul"
 require_relative "trusted-number/subtract"
 require_relative "trusted-number/version"
+require "debug"
 
 class TrustedNumber
   attr_reader :base, :sign, :mant, :exp
@@ -44,13 +45,18 @@ class TrustedNumber
   def value
     sign = (@sign == POSITIVE) ? "" : @sign
 
-    if @exp.zero?
-      number = @mant.dup
-    elsif @exp.positive?
+    number = @mant.dup
+    if @exp > 0
       size = @mant.length * @exp
       number = @mant.ljust(size, ZERO)
-    else
-      number = @mant.dup.insert(@exp - 1, DOT)
+    elsif @exp.negative?
+      desp = @mant.length + @exp
+      if desp <= 0
+        number = ZERO + (ZERO * desp) + number
+      end
+      desp = number.length + @exp
+      index = -desp
+      number.insert(index - 1, DOT)
     end
     base = "(b#{@base})"
     base = "" if @base == 10

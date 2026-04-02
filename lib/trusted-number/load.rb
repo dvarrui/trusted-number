@@ -5,8 +5,9 @@ class TrustedNumber
 
   def load_attibutes(input)
     num = input.delete(" ")
+    num = clean_trailing_postzeros(num)
     num = load_sign(num)
-    num = clean_unused_digits(num)
+    num = clean_trailing_prezeros(num)
     num = load_exp(num)
     load_mant(num)
     validate_format
@@ -23,9 +24,16 @@ class TrustedNumber
     number
   end
 
-  def clean_unused_digits(number)
-    clean = number.gsub(/^0+(?=\d)/, "")
-    clean = clean.gsub(/0+$/, "")
+  def clean_trailing_prezeros(str)
+    clean = str.gsub(/^0+(?=\d)/, "")
+    clean = ZERO if clean.empty?
+    clean
+  end
+
+  def clean_trailing_postzeros(str)
+    return str unless str.include?(".")
+  
+    clean = str.sub(/0+\z/, "").sub(/\.\z/, "")
     clean = ZERO if clean.empty?
     clean
   end
