@@ -16,6 +16,10 @@ class TrustedNumber
   NEGATIVE = "-"
 
   def self.factory(base)
+    unless base == base.to_i || base < 1
+      raise ArgumentError, "Invalid base (Natural number > 1)"
+    end
+
     ->(number) { new(number, base: base) }
   end
 
