@@ -4,9 +4,9 @@ require_relative "trusted-number/add"
 require_relative "trusted-number/compare"
 require_relative "trusted-number/load"
 require_relative "trusted-number/mul"
+require_relative "trusted-number/output"
 require_relative "trusted-number/subtract"
 require_relative "trusted-number/version"
-require "debug"
 
 class TrustedNumber
   attr_reader :base, :sign, :mant, :exp
@@ -26,40 +26,26 @@ class TrustedNumber
     load_attibutes(@number)
   end
 
-  def about
-    "TrustedNumber: #{to_s}|base:#{@base}|sign:#{@sign}|mant:#{@mant}|exp:#{@exp}"
-  end
-
-  def negative?
-    @sign == NEGATIVE
-  end
-
-  def positive?
-    !negative?
-  end
-
-  def to_s
-    sign = (@sign == POSITIVE) ? "" : @sign
-
-    number = @mant.dup
-    if @exp > 0
-      size = @mant.length * @exp
-      number = @mant.ljust(size, ZERO)
-    elsif @exp.negative?
-      desp = @mant.length + @exp
-      if desp <= 0
-        number = ZERO + (ZERO * desp.abs) + number
-        desp = number.length + @exp
-        index = -desp - 1
-      else
-        desp = number.length + @exp
-        index = -desp
-      end
-      number.insert(index - 1, DOT)
+  def down_exp_to!(new_exp)
+    return if @exp <= new_exp
+    while @exp > new_exp
+      @mant += ZERO
+      @exp -= 1
     end
-    base = "(b#{@base})"
-    base = "" if @base == 10
-    "#{sign}#{number.upcase}#{base}"
+    true
+  end
+
+  def up_exp_to!(new_exp)
+    return if @exp >= new_exp
+    while @exp < new_exp
+      if @mant.end_with? ZERO
+        @mant = @mant[0..-2]
+        @exp += 1
+      else
+        return false
+      end
+    end
+    true
   end
 
   private

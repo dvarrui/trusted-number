@@ -1,8 +1,7 @@
 class TrustedNumber
   def +(other)
     # Aligne numbers
-
-    max_post = [@postdot.length, other.postdot.length].max
+    max_exp = [exp, other.exp].min
     p1 = @postdot.ljust(max_post, "0")
     p2 = other.postdot.ljust(max_post, "0")
 
@@ -12,13 +11,14 @@ class TrustedNumber
     res_pre, final_carry = add_strings(@predot, other.predot, @base, carry)
     res_pre = DIGITS[final_carry] + res_pre if final_carry > 0
 
-    create_new_tnumber(res_pre, res_post)
+    create_new_tnumber(mant, exp)
   end
   alias_method :add, :+
 
   private
 
-  def add_strings(s1, s2, base, carry = 0)
+  def add_strings(s1, s2, base)
+    carry = 0
     res = []
     i, j = s1.length - 1, s2.length - 1
     while i >= 0 || j >= 0
@@ -30,6 +30,9 @@ class TrustedNumber
       i -= 1
       j -= 1
     end
-    [res.reverse.join, carry]
+    if carry > 0
+      res << DIGITS[carry % base]
+    end
+    res.reverse.join
   end
 end
