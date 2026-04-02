@@ -2,10 +2,11 @@
 require_relative "../lib/trusted-number"
 require_relative "line"
 
-num = TrustedNumber.new("123.456")
+input = "0123.4560"
+num = TrustedNumber.new(input)
 
 line
-puts "Example: 123.456"
+puts "Example: #{input}"
 puts "  base  : #{num.base}"
 puts "  sign  : #{num.sign}"
 puts "  mant  : #{num.mant}"

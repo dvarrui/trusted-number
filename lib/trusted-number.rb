@@ -24,7 +24,7 @@ class TrustedNumber
   end
 
   def initialize(number, base: 10)
-    @number = number.to_s.strip
+    @number = number.to_s.downcase.strip
     @base = base
 
     read_attibutes(@number)
@@ -73,11 +73,12 @@ class TrustedNumber
     TrustedNumber.new(str_number, base: @base)
   end
 
-  def read_attibutes(number)
-    num_str = number.to_s.downcase.delete(" ")
-    num_str = read_sign(num_str)
-    num_str = read_exp(num_str)
-    read_mant(num_str)
+  def read_attibutes(input)
+    num = input.delete(" ")
+    num = read_sign(num)
+    num = clean_unused_digits(num)
+    num = read_exp(num)
+    read_mant(num)
     validate_format
   end
 
@@ -90,6 +91,13 @@ class TrustedNumber
       number = number[1..]
     end
     number
+  end
+
+  def clean_unused_digits(number)
+    clean = number.gsub(/^0+(?=\d)/, "")
+    clean = clean.gsub(/0+$/, "")
+    clean = ZERO if clean.empty?
+    clean
   end
 
   def read_exp(number)
