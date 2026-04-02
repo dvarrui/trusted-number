@@ -16,7 +16,7 @@ class TrustedNumber
   NEGATIVE = "-"
 
   def initialize(number, base: 10)
-    @number = number.chomp
+    @number = number.to_s.strip
     @base = base
 
     fill_attibutes(@number)
@@ -49,7 +49,7 @@ class TrustedNumber
     end
     base = "(b#{@base})"
     base = "" if @base == 10
-    "#{sign}#{number}#{base}"
+    "#{sign}#{number.upcase}#{base}"
   end
 
   private
@@ -101,3 +101,5 @@ class TrustedNumber
     end
   end
 end
+
+TNumber = TrustedNumber

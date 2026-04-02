@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 require_relative "../lib/trusted-number"
-
-def line
-  puts "\n" + "-" * 40
-end
+require_relative "line"
 
 line
 puts "Example : 101.1 + 0.1 (base 2)"
