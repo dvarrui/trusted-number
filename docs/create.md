@@ -55,11 +55,11 @@ Factory is a number generator for a given base.
 
 ```ruby
 b2 = TrustedNumber.factory(2)
-bin2 = b2.call("101")
+bin = b2.call("101")
 
 b10 = TrustedNumber.factory(10)
-dec1 = b10.call(0.1)
+dec = b10.call(0.1)
 
 b16 = TrustedNumber.factory(16)
-hex3 = b16.call("FF")
+hex = b16.call("FF")
 ```
