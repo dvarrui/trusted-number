@@ -28,7 +28,6 @@ class TrustedNumber
     @base = base
 
     read_attibutes(@number)
-    validate_format
   end
 
   def about
@@ -78,12 +77,8 @@ class TrustedNumber
     num_str = number.to_s.downcase.delete(" ")
     num_str = read_sign(num_str)
     num_str = read_exp(num_str)
-
-    if num_str.size.zero?
-      @mant = ZERO
-    else
-      @mant = num_str
-    end
+    read_mant(num_str)
+    validate_format
   end
 
   def read_sign(number)
@@ -105,6 +100,12 @@ class TrustedNumber
       @exp = - dotpos
     end
     number.delete(DOT)
+  end
+
+  def read_mant(number)
+    mant = number.gsub(/^0+(?=\d)/, "")
+    mant = ZERO if mant.empty?
+    @mant = mant
   end
 
   def validate_format
