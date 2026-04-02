@@ -4,7 +4,7 @@
 
 ## 1. Create base 10 numbers
 
-Create `TrustedNumber` number (base 10) from `String`:
+Create base 10 number from `String`:
 
 ```ruby
 num1 = TrustedNumber.new("1")
@@ -13,14 +13,14 @@ num3 = TrustedNumber.new("3.4")
 num4 = TrustedNumber.new("-4")
 ```
 
-Create `TrustedNumber` number (base 10) from `Integer`:
+Create base 10 number from `Integer`:
 
 ```ruby
 num1 = TrustedNumber.new(1)
 num2 = TrustedNumber.new(-2)
 ```
 
-Create `TrustedNumber` number (base 10) from `Float`:
+Create base 10 number from `Float`:
 
 ```ruby
 num1 = TrustedNumber.new(0.1)
@@ -32,9 +32,8 @@ num2 = TrustedNumber.new(-2.3)
 ```ruby
 require_relative "trusted-number"
 
-dec1 = TrustedNumber.new("3.14")
-bin2 = TrustedNumber.new("101", base: 2)
-hex3 = TrustedNumber.new("FF", base: 16)
+bin = TrustedNumber.new("101", base: 2)
+hex = TrustedNumber.new("FF", base: 16)
 ```
 
 ## 3. Using alias
