@@ -20,22 +20,18 @@ class TrustedNumber
     ->(number) { new(number, base: base) }
   end
 
-  def initialize(number, base: 10)
+  def initialize(number, base: 10, exp: 0)
     @number = number.to_s.downcase.strip
     @base = base
 
     load_attibutes(@number)
+    @exp += exp
   end
 
   private
 
-  def create_new_tnumber(pre, post)
-    pre_clean = pre.gsub(/^0+(?=\d)/, "")
-    pre_clean = ZERO if pre_clean.empty?
-
-    post_clean = post.gsub(/0+$/, "")
-    str_number = post_clean.empty? ? pre_clean : "#{pre_clean}.#{post_clean}"
-    TrustedNumber.new(str_number, base: @base)
+  def create_new_tnumber(mant, exp)
+    TrustedNumber.new(mant, base: @base, exp: exp)
   end
 end
 

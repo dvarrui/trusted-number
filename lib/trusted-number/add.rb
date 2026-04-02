@@ -1,17 +1,18 @@
 class TrustedNumber
   def +(other)
-    # Aligne numbers
-    max_exp = [exp, other.exp].min
-    p1 = @postdot.ljust(max_post, "0")
-    p2 = other.postdot.ljust(max_post, "0")
+    # aligne exp
+    min_exp = [exp, other.exp].min
+    move_exp_to!(min_exp)
+    other.move_exp_to!(min_exp)
 
-    res_post, carry = add_strings(p1, p2, @base)
+    # aligne mant
+    max_mant = [@mant.length, other.mant.length].max
+    mant1 = @mant.ljust(max_mant, ZERO)
+    mant2 = other.mant.ljust(max_mant, ZERO)
 
-    # Sum predot + carry
-    res_pre, final_carry = add_strings(@predot, other.predot, @base, carry)
-    res_pre = DIGITS[final_carry] + res_pre if final_carry > 0
+    mant3 = add_strings(mant1, mant2, @base)
 
-    create_new_tnumber(mant, exp)
+    create_new_tnumber(mant3, min_exp)
   end
   alias_method :add, :+
 
