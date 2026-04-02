@@ -3,7 +3,7 @@ def line(eol: true)
   suffix = ""
   if eol
     prefix = "\n"
-    suffix = "\n\n" 
+    suffix = "\n\n"
   end
   puts prefix + "-" * 60 + suffix
 end
