@@ -10,7 +10,8 @@ Gem::Specification.new do |spec|
   spec.email = ["dvarrui@proton.me"]
 
   spec.summary = "A trusted number is a number whose value will not change secretly."
-  spec.description = "A trusted number is a number whose value will not change secretly."
+  spec.summary += " For example (base 10): 0.1 + 0.2 is 0.3."
+  spec.description = spec.summary
   spec.homepage = "https://github.com/dvarrui/trusted-number"
   spec.required_ruby_version = ">= 3.2.0"
 
