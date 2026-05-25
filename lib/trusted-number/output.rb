@@ -6,14 +6,6 @@ class TrustedNumber
     "TrustedNumber: #{to_s}|base:#{@base}|sign:#{@sign}|mant:#{@mant}|exp:#{@exp}"
   end
 
-  def negative?
-    @sign == NEGATIVE
-  end
-
-  def positive?
-    !negative?
-  end
-
   def to_s
     sign = (@sign == POSITIVE) ? "" : @sign
 
