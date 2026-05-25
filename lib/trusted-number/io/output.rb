@@ -24,7 +24,7 @@ class TrustedNumber
         # desp = number.length + @exp
         index = desp
         number.insert(index, DOT)
-        number = clean_trailing_postzeros(number)
+        number = Load.clean_trailing_zeros(number)
       end
     end
     base = "(b#{@base})"

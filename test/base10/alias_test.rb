@@ -7,6 +7,8 @@ class Base10AliasTest < Test::Unit::TestCase
     num = TNumber.new("-012.340")
 
     assert_equal "-", num.sign
+    assert_equal "1234", num.mant
+    assert_equal 2, num.exp
     assert_equal "12", num.predot
     assert_equal "34", num.postdot
 
@@ -27,6 +29,8 @@ class Base10AliasTest < Test::Unit::TestCase
     num = TNumber.new(-12.34)
 
     assert_equal "-", num.sign
+    assert_equal "1234", num.mant
+    assert_equal -2, num.exp
     assert_equal "12", num.predot
     assert_equal "34", num.postdot
 

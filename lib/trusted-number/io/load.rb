@@ -3,21 +3,25 @@
 class TrustedNumber
 
   class Load
-    def initialize(tnumber)
-      @tnumber = tnumber
+    def initialize(tnumber=nil)
+      if tnumber.nil?
+        @tnumber = TrustedNumber.new
+      else
+        @tnumber = tnumber
+      end
     end
 
     def from_string(input)
+      binding.break
       data = input.delete(" ")
-      data = clean_trailing_zeros(data)
+      data = Load.clean_trailing_zeros(data)
       load_sign(data)
-      data = clean_leadingzeros(data)
-      data = load_exp(data)
-      load_mant(data)
+      data = Load.clean_leading_zeros(data)
+      # data = load_exp(data)
+      # load_mant(data)
+      @tnumber.mant = data
       @tnumber
     end
-  
-    private
 
     def load_sign(number)
       @tnumber.positive = true
@@ -30,13 +34,13 @@ class TrustedNumber
       number
     end
   
-    def clean_leading_zeros(str)
+    def self.clean_leading_zeros(str)
       clean = str.gsub(/^0+(?=\d)/, "")
       clean = ZERO if clean.empty?
       clean
     end
   
-    def clean_trailing_zeros(str)
+    def self.clean_trailing_zeros(str)
       return str unless str.include?(".")
     
       clean = str.sub(/0+\z/, "").sub(/\.\z/, "")

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative "trusted-number/add"
-require_relative "trusted-number/compare"
-require_relative "trusted-number/exp"
-require_relative "trusted-number/load"
-require_relative "trusted-number/mul"
-require_relative "trusted-number/output"
-require_relative "trusted-number/subtract"
+require "debug"
+
+require_relative "trusted-number/attr"
 require_relative "trusted-number/version"
+
+require_relative "trusted-number/io/load"
+require_relative "trusted-number/io/output"
+require_relative "trusted-number/operations/main"
 
 class TrustedNumber
   DIGITS = "0123456789abcdefghijklmnopqrstuvwxyz"
@@ -16,7 +16,9 @@ class TrustedNumber
   POSITIVE = "+"
   NEGATIVE = "-"
 
-  attr_reader :base, :mant, :exp
+  attr_reader :number
+  attr_accessor :base, :mant, :exp
+  attr_accessor :positive
 
   def self.factory(base)
     unless base == base.to_i || base < 1
@@ -26,7 +28,7 @@ class TrustedNumber
     ->(number) { new(number, base: base) }
   end
 
-  def initialize(number, base: 10, exp: 0)
+  def initialize(number = ZERO, base: 10, exp: 0)
     @number = number.to_s.downcase.strip
     @base = base
     @positive = true
@@ -47,12 +49,6 @@ class TrustedNumber
       return false
     end
     true
-  end
-
-  def sign
-    return "" if zero?
-    return NEGATIVE if negative?
-    POSITIVE
   end
 
   private

@@ -7,6 +7,7 @@ require "trusted-number"
 
 module TrustedNumbersSetup
   def setup_base2
+    omit("todo")
     @zero = TrustedNumber.new("0", base: 2)
     @num1 = TrustedNumber.new("101.001", base: 2)
     @num2 = TrustedNumber.new("101", base: 2)

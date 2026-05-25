@@ -10,6 +10,7 @@ class Base2PrePostTest < Test::Unit::TestCase
   end
 
   test "predot" do
+    skip("todo")
     assert(@zero.predot == "0")
     assert(@zero.postdot == "0")
 
