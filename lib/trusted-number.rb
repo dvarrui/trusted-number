@@ -25,28 +25,33 @@ class TrustedNumber
     @exp = exp
 
     if str_number == ZERO
-      @str_numner = ZERO
+      @str_number = ZERO
       @sign = POSITIVE
       @int = ZERO
       @frac = ZERO
     else
-      Load.new(self).from_str(@str_number)
+      Load.new(self).from_str(str_number)
     end
   end
 
   def positive? = @sign == POSITIVE
   def negative? = @sign == NEGATIVE
   def zero? = @int == ZERO && @frac == ZERO
+  def valid? = @valid
 
-  def clean
+    def clean
     clean_leading_zeros
     clean_trailing_zeros
   end
 
   def check
+    @valid = true
     allowed = DIGITS[0...@base] + DOT + POSITIVE + NEGATIVE
     pattern = /\A[#{allowed}]*\z/
-    warn "Invalid content! (#{@str_number})" unless @str_number.match?(pattern)
+    unless @str_number.match?(pattern)
+      warn "Invalid content! (#{@str_number})"
+      @valid = false
+    end
   end
 
   private

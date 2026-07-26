@@ -12,7 +12,7 @@ class TrustedNumber
     number = "#{@int}#{DOT}#{@frac}"
     number = "#{@int}" if @frac == ZERO
 
-    exp = "exp#{@exp}"
+    exp = "E#{@exp}"
     exp = "" if @exp.zero?
 
     base = "(b#{@base})"

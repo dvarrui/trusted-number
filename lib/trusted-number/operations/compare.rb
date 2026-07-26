@@ -2,9 +2,11 @@ class TrustedNumber
   include Comparable
 
   def ==(other)
-    cond = (@base == other.base)
-    cond &&= (@predot == other.predot)
-    cond &&= (@postdot == other.postdot)
+    cond = (@sign == other.sign)
+    cond &&= (@base == other.base)
+    cond &&= (@int == other.int)
+    cond &&= (@frac == other.frac)
+    cond &&= (@exp == other.exp)
 
     cond
   end
@@ -13,20 +15,20 @@ class TrustedNumber
 
   def <=>(other)
     return nil unless other.is_a?(TrustedNumber)
-    return 0 if about == other.about
+    return 0 if self == other
 
     # compare sign
     return 1 if positive? && other.negative?
     return -1 if negative? && other.positive?
 
-    # compare predot
+    # compare int
     max_pre = [@predot.length, other.predot.length].max
     s1_pre = @predot.rjust(max_pre, "0")
     s2_pre = other.predot.rjust(max_pre, "0")
 
     return s1_pre <=> s2_pre if s1_pre != s2_pre
 
-    # compare postdot
+    # compare frac
     max_post = [@postdot.length, other.postdot.length].max
     s1_post = @postdot.ljust(max_post, "0")
     s2_post = other.postdot.ljust(max_post, "0")
