@@ -11,6 +11,9 @@ class TrustedNumber
       desp_exp(-@frac.length)
     elsif option == :sci
       desp_exp(@int.length-1)
+    elsif option == :original
+      d = @int.length - @original_dot_index
+      desp_exp(d)
     else
       puts "Unkown option! (#{option})"
     end

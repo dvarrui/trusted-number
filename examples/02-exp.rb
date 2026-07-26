@@ -25,3 +25,6 @@ puts "Move dot right | #{number}"
 
 number.move_dot :sci
 puts "Move dot sci | #{number}"
+
+number.move_dot :original
+puts "Move dot original | #{number}"

@@ -33,6 +33,7 @@ class TrustedNumber
     @int = load.int
     @frac = load.frac
     clean
+    @original_dot_index = @int.length
   end
 
   def positive? = @sign == POSITIVE
