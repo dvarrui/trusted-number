@@ -3,65 +3,44 @@
 class TrustedNumber
 
   class Load
-    def initialize(tnumber=nil)
-      if tnumber.nil?
-        @tnumber = TrustedNumber.new
-      else
-        @tnumber = tnumber
-      end
+    def initialize(tnumber = nil)
+      @tnumber = tnumber
+      @tnumber = TrustedNumber.new if tnumber.nil?
     end
 
-    def from_string(input)
-      binding.break
-      data = input.delete(" ")
-      data = Load.clean_trailing_zeros(data)
-      load_sign(data)
-      data = Load.clean_leading_zeros(data)
-      # data = load_exp(data)
-      # load_mant(data)
-      @tnumber.mant = data
+    def from_str(str_number)
+      digits = str_number.chars
+
+      load_sign(digits)
+      load_int_and_frac(digits)
+      @tnumber.clean
       @tnumber
     end
 
-    def load_sign(number)
-      @tnumber.positive = true
-      if number.start_with?(NEGATIVE)
-        @tnumber.positive = false
-        number = number[1..]
-      elsif number.start_with?(POSITIVE)
-        number = number[1..]
-      end
-      number
-    end
-  
-    def self.clean_leading_zeros(str)
-      clean = str.gsub(/^0+(?=\d)/, "")
-      clean = ZERO if clean.empty?
-      clean
-    end
-  
-    def self.clean_trailing_zeros(str)
-      return str unless str.include?(".")
-    
-      clean = str.sub(/0+\z/, "").sub(/\.\z/, "")
-      clean = ZERO if clean.empty?
-      clean
-    end
-  
-    def load_exp(number)
-      if number.index(DOT).nil?
-        @tnumber.exp = 0
+    def load_sign(digits)
+      if digits.first == TrustedNumber::NEGATIVE
+        @tnumber.sign = TrustedNumber::NEGATIVE
+        digits.delete_at 0
+      elsif digits.first == TrustedNumber::POSITIVE
+        @tnumber.sign = TrustedNumber::POSITIVE
+        digits.delete_at 0
       else
-        dotpos = number.length - 1 - number.index(DOT)
-        @tnumber.exp = - dotpos
+        @tnumber.sign = TrustedNumber::POSITIVE
       end
-      number.delete(DOT)
     end
-  
-    def load_mant(number)
-      mant = number.gsub(/^0+(?=\d)/, "")
-      mant = ZERO if mant.empty?
-      @tnumber.mant = mant
+
+    def load_int_and_frac(digits)
+      dot_index = digits.index TrustedNumber::DOT
+      if dot_index.nil?
+        @tnumber.int = digits.join
+        @tnumber.frac = ZERO
+      elsif dot_index.zero?
+        @tnumber.int = ZERO
+        @tnumber.frac = digits.join
+      else
+        @tnumber.int = digits[0..(dot_index - 1)].join
+        @tnumber.frac = digits[(dot_index + 1)..].join
+      end
     end
   end
 end

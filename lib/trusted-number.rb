@@ -3,6 +3,7 @@
 require "debug"
 
 require_relative "trusted-number/attr"
+require_relative "trusted-number/factory"
 require_relative "trusted-number/version"
 
 require_relative "trusted-number/io/load"
@@ -16,54 +17,61 @@ class TrustedNumber
   POSITIVE = "+"
   NEGATIVE = "-"
 
-  attr_reader :number
-  attr_accessor :base, :mant, :exp
-  attr_accessor :positive
+  attr_reader :str_number
+  attr_accessor :sign, :base
+  attr_accessor :int, :frac, :exp
 
-  def self.factory(base)
-    unless base == base.to_i || base < 1
-      raise ArgumentError, "Invalid base (Natural number > 1)"
-    end
-
-    ->(number) { new(number, base: base) }
-  end
-
-  def initialize(number = ZERO, base: 10, exp: 0)
-    @number = number.to_s.downcase.strip
+  def initialize(str_number = ZERO, base: 10, exp: 0)
+    @str_number = str_number.to_s.downcase.strip
     @base = base
-    @positive = true
+    @exp = exp
 
-    Load.new(self).from_string(@number)
-    @exp += exp
+    if str_number == ZERO
+      @sign = POSITIVE
+      @int = ZERO
+      @frac = ZERO
+    else
+      Load.new(self).from_str(@str_number)
+    end
   end
 
-  def positive? = @positive
-  def negative? = !@positive
-  def zero? = @mant == 0
+  def positive? = @sign == POSITIVE
+  def negative? = @sign == NEGATIVE
+  def zero? = @int == ZERO && @frac == ZERO
 
   def is_valid?
     allowed = DIGITS[0...@base]
     pattern = /\A[#{allowed}]*\z/
-    unless @mant.match?(pattern)
+    str_number = "#{@int}#{DOT}#{@frac}"
+    unless str_mumber.match?(pattern)
       warn "Invalid chars (base #{@base})"
       return false
     end
     true
   end
 
-  private
-
-  def create_new_tnumber(mant, exp)
-    new(mant, base: @base, exp: exp)
+  def clean
+    clean_leading_zeros
+    clean_trailing_zeros
   end
 
-  def move_point(desp)
-    return if desp.zero?
+  private
 
-    if desp > 0
 
-    else
+  def clean_leading_zeros
+    digits = @int.chars
+    while digits.first == TrustedNumber::ZERO && digits.length > 1
+      digits.delete_at 0
     end
+    @int = digits.join
+  end
+
+  def clean_trailing_zeros
+    digits = @frac.chars
+    while digits.last == TrustedNumber::ZERO && digits.length > 1
+      digits.delete_at -1
+    end
+    @frac = digits.join
   end
 end
 

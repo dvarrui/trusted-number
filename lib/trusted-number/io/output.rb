@@ -2,33 +2,21 @@
 
 class TrustedNumber
 
-  def about
-    "TrustedNumber: #{to_s}|base:#{@base}|sign:#{@sign}|mant:#{@mant}|exp:#{@exp}"
+  def inspect
+    "TrustedNumber: #{to_s}| base:#{@base}| sign:#{@sign}| int:#{@int}| frac:#{@frac}| exp:#{@exp}"
   end
 
   def to_s
     sign = (@sign == POSITIVE) ? "" : @sign
 
-    number = @mant.dup
-    if @exp > 0
-      size = @mant.length * @exp
-      number = @mant.ljust(size, ZERO)
-    elsif @exp.negative?
-      desp = @mant.length + @exp
-      if desp <= 0
-        number = ZERO + (ZERO * desp.abs) + number
-        desp = number.length + @exp
-        index = -desp - 1
-        number.insert(index - 1, DOT)
-      else
-        # desp = number.length + @exp
-        index = desp
-        number.insert(index, DOT)
-        number = Load.clean_trailing_zeros(number)
-      end
-    end
+    number = "#{@int}#{DOT}#{@frac}"
+    number = "#{@int}" if @frac == ZERO
+
+    exp = "exp#{@exp}"
+    exp = "" if @exp.zero?
+
     base = "(b#{@base})"
     base = "" if @base == 10
-    "#{sign}#{number.upcase}#{base}"
+    "#{sign}#{number}#{exp} #{base}"
   end
 end
