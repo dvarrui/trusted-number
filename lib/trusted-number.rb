@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require "debug"
+# require "debug"
 
+require_relative "trusted-number/exp"
 require_relative "trusted-number/factory"
 require_relative "trusted-number/version"
 
@@ -61,7 +62,7 @@ class TrustedNumber
     while digits.first == TrustedNumber::ZERO && digits.length > 1
       digits.delete_at 0
     end
-    @int = digits.join
+    @int = digits.empty? ? ZERO: digits.join
   end
 
   def clean_trailing_zeros
@@ -69,7 +70,7 @@ class TrustedNumber
     while digits.last == TrustedNumber::ZERO && digits.length > 1
       digits.delete_at -1
     end
-    @frac = digits.join
+    @frac = digits.empty? ? ZERO: digits.join
   end
 end
 

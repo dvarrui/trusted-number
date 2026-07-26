@@ -2,33 +2,29 @@
 
 class TrustedNumber
 
-  def down_exp_to!(new_exp)
-    return if @exp <= new_exp
-    while @exp > new_exp
-      @mant += ZERO
-      @exp -= 1
+  def move_dot(option)
+    if option.is_a? Integer
+      desp_exp(-option)
+    else
+      puts option
     end
-    true
   end
 
-  def up_exp_to!(new_exp)
-    return if @exp >= new_exp
-    while @exp < new_exp
-      if @mant.end_with? ZERO
-        @mant = @mant[0..-2]
-        @exp += 1
-      else
-        return false
-      end
-    end
-    true
-  end
+  def desp_exp(desp)
+    int = @int.chars
+    frac = @frac.chars
 
-  def move_exp_to!(new_exp)
-    if @exp > new_exp
-      down_exp_to!(new_exp)
-    elsif @exp < new_exp
-      up_exp_to!(new_exp)
+    @exp += desp
+    if desp < 0
+      # down exp and move dot to left
+      desp.abs.times { int.append(frac.shift) }
+    elsif desp > 0
+      # up exp and move dot to right
+      desp.times { frac.unshift(int.pop) }
     end
+
+    @int = int.join
+    @frac = frac.join
+    clean
   end
 end
