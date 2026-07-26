@@ -5,9 +5,16 @@ class TrustedNumber
   def move_dot(option)
     if option.is_a? Integer
       desp_exp(-option)
+    elsif option == :left
+      desp_exp(@int.length)
+    elsif option == :right
+      desp_exp(-@frac.length)
+    elsif option == :sci
+      desp_exp(@int.length-1)
     else
-      puts option
+      puts "Unkown option! (#{option})"
     end
+    self
   end
 
   def desp_exp(desp)
