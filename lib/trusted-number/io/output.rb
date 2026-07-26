@@ -3,7 +3,7 @@
 class TrustedNumber
 
   def inspect
-    "TrustedNumber: #{to_s}| base:#{@base}| sign:#{@sign}| int:#{@int}| frac:#{@frac}| exp:#{@exp}"
+    "TNumber: #{to_s} | base=#{@base} | sign=#{@sign} | int=#{@int} | frac=#{@frac} | exp=#{@exp}"
   end
 
   def to_s

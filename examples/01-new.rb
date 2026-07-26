@@ -14,7 +14,7 @@ samples = [
 samples.each do |number, base, exp|
   tnumber = TrustedNumber.new(number, base: base, exp: exp)
 
-  puts "==> number: #{number}, base: #{base}, exp: #{exp}"
+  puts "==> Sample (#{number}, base: #{base}, exp: #{exp})"
   puts "    #{tnumber.inspect}"
   puts ""
 end
