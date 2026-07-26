@@ -17,9 +17,11 @@ class TrustedNumber
     @exp += desp
     if desp < 0
       # down exp and move dot to left
+      frac += [ZERO] * desp.abs
       desp.abs.times { int.append(frac.shift) }
     elsif desp > 0
       # up exp and move dot to right
+      int = [ZERO] * desp + int
       desp.times { frac.unshift(int.pop) }
     end
 
