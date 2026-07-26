@@ -17,22 +17,22 @@ class TrustedNumber
   POSITIVE = "+"
   NEGATIVE = "-"
 
-  attr_accessor :str_number
-  attr_accessor :sign, :base
-  attr_accessor :int, :frac, :exp
+  attr_reader :str_number
+  attr_reader :sign, :base
+  attr_reader :int, :frac, :exp
 
   def initialize(str_number = ZERO, base: 10, exp: 0)
+    @str_number = str_number.to_s.downcase.strip
     @base = base
     @exp = exp
+    check
 
-    if str_number == ZERO
-      @str_number = ZERO
-      @sign = POSITIVE
-      @int = ZERO
-      @frac = ZERO
-    else
-      Load.new(self).from_str(str_number)
-    end
+    load = Load.new
+    load.from_str(@str_number)
+    @sign = load.sign
+    @int = load.int
+    @frac = load.frac
+    clean
   end
 
   def positive? = @sign == POSITIVE
