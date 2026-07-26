@@ -9,7 +9,9 @@ class TrustedNumber
     end
 
     def from_str(str_number)
-      digits = str_number.chars
+      @tnumber.str_number = str_number.to_s.downcase.strip
+      @tnumber.check
+      digits = @tnumber.str_number.chars
 
       load_sign(digits)
       load_int_and_frac(digits)

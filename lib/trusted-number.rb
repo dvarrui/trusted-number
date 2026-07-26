@@ -2,7 +2,6 @@
 
 require "debug"
 
-require_relative "trusted-number/attr"
 require_relative "trusted-number/factory"
 require_relative "trusted-number/version"
 
@@ -17,16 +16,16 @@ class TrustedNumber
   POSITIVE = "+"
   NEGATIVE = "-"
 
-  attr_reader :str_number
+  attr_accessor :str_number
   attr_accessor :sign, :base
   attr_accessor :int, :frac, :exp
 
   def initialize(str_number = ZERO, base: 10, exp: 0)
-    @str_number = str_number.to_s.downcase.strip
     @base = base
     @exp = exp
 
     if str_number == ZERO
+      @str_numner = ZERO
       @sign = POSITIVE
       @int = ZERO
       @frac = ZERO
@@ -39,24 +38,18 @@ class TrustedNumber
   def negative? = @sign == NEGATIVE
   def zero? = @int == ZERO && @frac == ZERO
 
-  def is_valid?
-    allowed = DIGITS[0...@base]
-    pattern = /\A[#{allowed}]*\z/
-    str_number = "#{@int}#{DOT}#{@frac}"
-    unless str_mumber.match?(pattern)
-      warn "Invalid chars (base #{@base})"
-      return false
-    end
-    true
-  end
-
   def clean
     clean_leading_zeros
     clean_trailing_zeros
   end
 
-  private
+  def check
+    allowed = DIGITS[0...@base] + DOT + POSITIVE + NEGATIVE
+    pattern = /\A[#{allowed}]*\z/
+    warn "Invalid content! (#{@str_number})" unless @str_number.match?(pattern)
+  end
 
+  private
 
   def clean_leading_zeros
     digits = @int.chars
