@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# require "debug"
+require "debug"
 
 require_relative "trusted-number/exp"
 require_relative "trusted-number/factory"
@@ -36,12 +36,12 @@ class TrustedNumber
     @original_dot_index = @int.length
   end
 
-  def positive? = @sign == POSITIVE
   def negative? = @sign == NEGATIVE
-  def zero? = @int == ZERO && @frac == ZERO
+  def positive? = @sign == POSITIVE
   def valid? = @valid
+  def zero? = @int == ZERO && @frac == ZERO
 
-    def clean
+  def clean
     clean_leading_zeros
     clean_trailing_zeros
   end
@@ -54,6 +54,17 @@ class TrustedNumber
       warn "Invalid content! (#{@str_number})"
       @valid = false
     end
+  end
+
+  def mant(pre=0, post=0)
+    pre_zeros = ""
+    pre = pre - int.length
+    pre_zeros = ZERO * pre if pre > 0
+    post_zeros = ""
+    post = post - frac.length
+    post_zeros = ZERO * post if post > 0
+
+    "#{pre_zeros}#{int}#{DOT}#{frac}#{post_zeros}"
   end
 
   private

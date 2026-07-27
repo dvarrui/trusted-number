@@ -38,5 +38,6 @@ class TrustedNumber
     @int = int.join
     @frac = frac.join
     clean
+    self
   end
 end

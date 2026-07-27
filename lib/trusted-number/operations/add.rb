@@ -1,35 +1,36 @@
 class TrustedNumber
   def +(other)
-    # aligne exp
-    min_exp = [exp, other.exp].min
-    move_exp_to!(min_exp)
-    other.move_exp_to!(min_exp)
+    raise "Diferent bases!" unless @base == other.base
+    other.desp_exp(@exp - other.exp) unless @exp == other.exp
 
-    # aligne mant
-    max_mant = [@mant.length, other.mant.length].max
-    mant1 = @mant.ljust(max_mant, ZERO)
-    mant2 = other.mant.ljust(max_mant, ZERO)
+    pre_zeros = [int.length, other.int.length].max
+    post_zeros = [frac.length, other.frac.length].max
+    mant_tn1 = self.mant(pre_zeros, post_zeros)
+    mant_tn2 = other.mant(pre_zeros, post_zeros)
+    mant_add = add_strings(mant_tn1, mant_tn2)
 
-    mant3 = add_strings(mant1, mant2, @base)
-
-    create_new_tnumber(mant3, min_exp)
+    TNumber.new(mant_add, base: @base, exp: @exp)
   end
   alias_method :add, :+
 
   private
 
-  def add_strings(s1, s2, base)
+  def add_strings(s1, s2)
     carry = 0
     res = []
-    i, j = s1.length - 1, s2.length - 1
-    while i >= 0 || j >= 0
-      v1 = (i >= 0) ? DIGITS.index(s1[i]) : 0
-      v2 = (j >= 0) ? DIGITS.index(s2[j]) : 0
-      sum = v1 + v2 + carry
-      res << DIGITS[sum % base]
-      carry = sum / base
-      i -= 1
-      j -= 1
+    raise "PANIC" unless s1.length == s2.length
+    index = s1.length - 1
+    while index >= 0
+      v1 = DIGITS.index(s1[index])
+      v2 = DIGITS.index(s2[index])
+      if v1.nil?
+        res << DOT
+      else
+        sum = v1 + v2 + carry
+        res << DIGITS[sum % base]
+        carry = sum / base
+      end
+      index -= 1
     end
     if carry > 0
       res << DIGITS[carry % base]
